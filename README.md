@@ -30,7 +30,7 @@
 •	link_commit_bug – string <br />
 •	id_membru – number unique <br />
 •	status_rezolvare - string <br />
-•	link_commit_rezolvare – string <br />
+•	link_commit_rezolvare – string <br /><br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Relațiile dintre tabele vor fi următoarele: <br />
 •	Studenți - Proiecte -> mulți-la-mulți  <br />
 Vom avea tabelele intermediare Membri-proiecte si Testeri-proiecte pentru a face legătura între Studenți și Proiecte. <br /> 
