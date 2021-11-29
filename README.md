@@ -1,6 +1,6 @@
 # Proiect_TW_Donald_DAC
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pentru realizarea aplicației vom avea nevoie de o bază de date care să conțină următoarele tabele:
 # Descrierea bazei de date
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pentru realizarea aplicației vom avea nevoie de o bază de date care să conțină următoarele tabele:
  1.	Studenți - cu câmpurile:<br />
 •	id_student – number not null <br />
 •	nume - string <br />
