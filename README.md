@@ -37,8 +37,8 @@ Vom avea tabelele intermediare Membri-proiecte si Testeri-proiecte pentru a face
 •	Proiecte - Buguri –> 1-la-mulți <br />
 •	Studenți – Buguri: <br />
 a)	TST– Buguri -> 1-la-mulți <br />
-b)	MP – Buguri -> 1-la-1 <br />!
-[image_2021-11-29_134931](https://user-images.githubusercontent.com/74931542/143862936-986d0573-f10a-4975-a3e5-c2cf40d3a380.png)
+b)	MP – Buguri -> 1-la-1 <br />
+![image_2021-11-29_134931](https://user-images.githubusercontent.com/74931542/143862936-986d0573-f10a-4975-a3e5-c2cf40d3a380.png)
 <br/>
 
 # Descrierea aplicației
