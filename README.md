@@ -1,25 +1,26 @@
 # Proiect_TW_Donald_DAC
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pentru realizarea aplicației vom avea nevoie de o bază de date care să conțină următoarele tabele:
-# 1.	Studenți - cu câmpurile:
+# Descrierea bazei de date
+ 1.	Studenți - cu câmpurile:<br />
 •	id_student – number not null <br />
 •	nume - string <br />
 •	prenume - string <br />
 •	email – string unique <br />
 •	username - string <br />
 •	parola – string <br />
-# 2.	Membri_proiecte - cu câmpurile:
+ 2.	Membri_proiecte - cu câmpurile:<br />
 •	id_proiect - number <br />
 •	id_student_mp - number <br />
-# 3.	Testeri_proiecte - cu câmpurile:
+ 3.	Testeri_proiecte - cu câmpurile:<br />
 •	id_proiect - number <br />
 •	id_student_tst - number <br />
-# 4.	Proiecte - cu câmpurile:
+ 4.	Proiecte - cu câmpurile:<br />
 •	id_proiect - number <br />
 •	id_student_autor - number <br />
 •	nume_proiect – string <br />
 •	status_proiect -string <br />
 •	link_repository - string <br />
-# 5.	Buguri - cu câmpurile:
+ 5.	Buguri - cu câmpurile:<br />
 •	id_bug – number <br />
 •	id_proiect - number <br />
 •	id_tst - number <br />
