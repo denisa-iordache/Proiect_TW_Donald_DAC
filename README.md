@@ -1,4 +1,3 @@
-![image_2021-11-29_134931](https://user-images.githubusercontent.com/74931542/143862936-986d0573-f10a-4975-a3e5-c2cf40d3a380.png)
 # Proiect_TW_Donald_DAC
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pentru realizarea aplicației vom avea nevoie de o bază de date care să conțină următoarele tabele:
 # 1.	Studenți - cu câmpurile:
@@ -39,7 +38,7 @@ Vom avea tabelele intermediare Membri-proiecte si Testeri-proiecte pentru a face
 •	Studenți – Buguri: <br />
 a)	TST– Buguri -> 1-la-mulți <br />
 b)	MP – Buguri -> 1-la-1 <br />!
-[image](https://user-images.githubusercontent.com/74931542/143863001-2f61801e-1fc6-4d4c-b860-158ad55d30d4.png)
+![image_2021-11-29_134931](https://user-images.githubusercontent.com/74931542/143862936-986d0573-f10a-4975-a3e5-c2cf40d3a380.png)
 <br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fiind de tip SPA, conținutul paginii web se va actualiza dinamic în funcție de selecțiile vizitatorului. În partea dreapta sus a paginii for exista doua butoane, „Sign Up” si „Sign In”. Prin apăsarea butonului de „Sign Up”, se va deschide o fereastra modală sub forma unui formular unde vor trebui introduse următoarele date: nume, prenume, email, nume de utilizator și parolă. Va fi realizată o verificare asupra email-ului, respectiv dacă acesta este instituțional, fiind o aplicație destinată studenților. Odată creat contul, orice utilizator va avea pe pagina de Home proiectele existente în baza de date a site-ului (pot avea unul din statusurile: Deschis spre testare/În testare /Închis). <br /><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Prin adăugarea unui proiect nou de către un utilizator (apăsarea butonului „Proiect nou”), acesta devine automat membru de proiect. La adăugarea unui proiect, acesta trebuie să specifice numele proiectului, să atașeze un link către repository-ul de GitHub unde este încărcat proiectul și să completeze numele și adresele de email ale coechipierilor săi. Prin adăugarea celorlalți membri, și aceștia vor fi adăugați în tabela membri_proiecte și statusul acestora va deveni „MP” (membru de proiect). <br /><br/>
