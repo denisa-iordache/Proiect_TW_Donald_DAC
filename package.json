@@ -1,0 +1,28 @@
+{
+  "name": "proiect_tw_donald_dac",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev":"nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/denisa-iordache/Proiect_TW_Donald_DAC.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/denisa-iordache/Proiect_TW_Donald_DAC/issues"
+  },
+  "homepage": "https://github.com/denisa-iordache/Proiect_TW_Donald_DAC#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "sequelize": "^6.12.0-alpha.1",
+    "sqlite3": "^5.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
