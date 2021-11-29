@@ -40,6 +40,7 @@ a)	TST– Buguri -> 1-la-mulți <br />
 b)	MP – Buguri -> 1-la-1 <br />!
 [image_2021-11-29_134931](https://user-images.githubusercontent.com/74931542/143862936-986d0573-f10a-4975-a3e5-c2cf40d3a380.png)
 <br/>
+
 # Descrierea aplicației
 <br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fiind de tip SPA, conținutul paginii web se va actualiza dinamic în funcție de selecțiile vizitatorului. În partea dreapta sus a paginii for exista doua butoane, „Sign Up” si „Sign In”. Prin apăsarea butonului de „Sign Up”, se va deschide o fereastra modală sub forma unui formular unde vor trebui introduse următoarele date: nume, prenume, email, nume de utilizator și parolă. Va fi realizată o verificare asupra email-ului, respectiv dacă acesta este instituțional, fiind o aplicație destinată studenților. Odată creat contul, orice utilizator va avea pe pagina de Home proiectele existente în baza de date a site-ului (pot avea unul din statusurile: Deschis spre testare/În testare /Închis). <br /><br/>
