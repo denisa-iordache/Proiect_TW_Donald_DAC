@@ -1,35 +1,35 @@
 # Proiect_TW_Donald_DAC
 Pentru realizarea aplicației vom avea nevoie de o bază de date care să conțină următoarele tabele:
 # 1.	Studenți - cu câmpurile:
-•	id_student – number not null
-•	nume - string
-•	prenume - string
-•	email – string unique
-•	username - string
-•	parola – string
+•	id_student – number not null <br />
+•	nume - string <br />
+•	prenume - string <br />
+•	email – string unique <br />
+•	username - string <br />
+•	parola – string <br />
 # 2.	Membri_proiecte - cu câmpurile:
-•	id_proiect - number
-•	id_student_mp - number
+•	id_proiect - number <br />
+•	id_student_mp - number <br />
 # 3.	Testeri_proiecte - cu câmpurile:
-•	id_proiect - number
-•	id_student_tst - number
+•	id_proiect - number <br />
+•	id_student_tst - number <br />
 # 4.	Proiecte - cu câmpurile:
-•	id_proiect - number
-•	id_student_autor - number
-•	nume_proiect – string
-•	status_proiect -string
-•	link_repository - string
+•	id_proiect - number <br />
+•	id_student_autor - number <br />
+•	nume_proiect – string <br />
+•	status_proiect -string <br />
+•	link_repository - string <br />
 # 5.	Buguri - cu câmpurile:
-•	id_bug – number
-•	id_proiect - number
-•	id_tst - number
-•	severitate - string
-•	prioritate_de_rezolvare - string
-•	descriere - string
-•	link_commit_bug – string
-•	id_membru – number unique
-•	status_rezolvare - string
-•	link_commit_rezolvare – string
+•	id_bug – number <br />
+•	id_proiect - number <br />
+•	id_tst - number <br />
+•	severitate - string <br />
+•	prioritate_de_rezolvare - string <br />
+•	descriere - string <br />
+•	link_commit_bug – string <br />
+•	id_membru – number unique <br />
+•	status_rezolvare - string <br />
+•	link_commit_rezolvare – string <br />
 Relațiile dintre tabele vor fi următoarele:
 •	Studenți - Proiecte -> mulți-la-mulți 
 Vom avea tabelele intermediare Membri-proiecte si Testeri-proiecte pentru a face legătura între Studenți și Proiecte.
