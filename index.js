@@ -11,6 +11,8 @@ const sequelize = require("./sequelize");
 const Proiect = require("./models/proiect");
 const Student = require("./models/student");
 const Bug = require("./models/bug");
+const Membru_proiect = require("./models/membru_proiect");
+const Tester_proiect = require("./models/tester_proiect");
 // const Membru_proiect = require("./models/membru_proiect");
 // const Tester_proiect = require("./models/tester_proiect");
 
@@ -87,6 +89,102 @@ app.get("/students", async (req, res, next) => {
   try {
     const students = await Student.findAll();
     res.status(200).json(students);
+  } catch (err) {
+    next(err);
+  }
+});
+
+/**
+ * POST a new project to the database.
+ */
+ app.post("/project", async (req, res, next) => {
+  try {
+    await Proiect.create(req.body);
+    res.status(201).json({ message: "Project Created!" });
+  } catch (err) {
+    next(err);
+  }
+});
+
+/**
+ * GET aLL projects from the database.
+ */
+ app.get("/projects", async (req, res, next) => {
+  try {
+    const projects = await Proiect.findAll();
+    res.status(200).json(projects);
+  } catch (err) {
+    next(err);
+  }
+});
+
+/**
+ * POST a new member of the project to the database.
+ */
+ app.post("/member", async (req, res, next) => {
+  try {
+    await Membru_proiect.create(req.body);
+    res.status(201).json({ message: "Member of the Project Created!" });
+  } catch (err) {
+    next(err);
+  }
+});
+
+/**
+ * GET aLL members of the project from the database.
+ */
+ app.get("/members", async (req, res, next) => {
+  try {
+    const members_project = await Membru_proiect.findAll();
+    res.status(200).json(members_project);
+  } catch (err) {
+    next(err);
+  }
+});
+
+/**
+ * POST a new tester of the project to the database.
+ */
+ app.post("/tester", async (req, res, next) => {
+  try {
+    await Tester_proiect.create(req.body);
+    res.status(201).json({ message: "Tester Created!" });
+  } catch (err) {
+    next(err);
+  }
+});
+
+/**
+ * GET aLL testers of the project from the database.
+ */
+ app.get("/testers", async (req, res, next) => {
+  try {
+    const testers = await Tester_proiect.findAll();
+    res.status(200).json(testers);
+  } catch (err) {
+    next(err);
+  }
+});
+
+/**
+ * POST a new bug to the database.
+ */
+ app.post("/bug", async (req, res, next) => {
+  try {
+    await Bug.create(req.body);
+    res.status(201).json({ message: "Bug Created!" });
+  } catch (err) {
+    next(err);
+  }
+});
+
+/**
+ * GET aLL bugs from the database.
+ */
+ app.get("/bugs", async (req, res, next) => {
+  try {
+    const bugs = await Bug.findAll();
+    res.status(200).json(bugs);
   } catch (err) {
     next(err);
   }
