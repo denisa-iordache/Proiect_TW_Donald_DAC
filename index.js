@@ -35,7 +35,7 @@ Project.belongsToMany(Student, {
 Project.hasMany(Bug);
 
 Student.hasOne(Bug, { foreignKey: 'id_membru', foreignKeyConstraint: true });
-Student.hasMany(Bug, { foreignKey: 'id_tst', foreignKeyConstraint: true });
+Student.hasMany(Bug, { foreignKey: 'id_tester', foreignKeyConstraint: true });
 
 // Express middleware
 application.use(
@@ -372,6 +372,59 @@ application.put(
     } catch (err) {
       return res.status(500).json(err);
       // next(err)
+    }
+  }
+);
+
+/**
+ * GET - afisare bug-uri pentru un student.
+ */
+application.get(
+  "/students/:studentId/projects/:projectId/bugs",
+  async (request, response, next) => {
+    try {
+      const student = await Student.findByPk(request.params.studentId);
+      const project = await Project.findByPk(request.params.projectId);
+      if (student && project) {
+        const bugs = await project.getBugs();
+        if (bugs.length > 0) {
+          response.json(bugs);
+        } else {
+          response.sendStatus(204);
+        }
+      } else {
+        response.sendStatus(404);
+      }
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+/**
+ * POST - adaugare bug la student.
+ */
+application.post(
+  "/students/:studentId/projects/:projectId/bugs/:bugId",
+  async (request, response, next) => {
+    try {
+      const student = await Student.findByPk(request.params.studentId);
+      const project = await Project.findByPk(request.params.projectId);
+      if (student && project) {
+        const bugs = await project.getBugs({ id: request.params.bugId });
+        const bug = bugs.shift();
+        if (bug) {
+          student.addBug(bug);
+          student.save();
+          response.sendStatus(204);
+        } else {
+          response.sendStatus(404);
+        }
+      } else {
+        response.sendStatus(404);
+      }
+    } catch (error) {
+      next(error);
     }
   }
 );
