@@ -1,25 +1,16 @@
 {
-  "name": "proiect_tw_donald_dac",
+  "name": "part-4",
   "version": "1.0.0",
-  "description": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pentru realizarea aplicației vom avea nevoie de o bază de date care să conțină următoarele tabele:\r  1.\tStudenți - cu câmpurilee:<br />\r •\tid_student – number not null <br />\r •\tnume - string <br />\r •\tprenume - string <br />\r •\temail – string unique <br />\r •\tusername - string <br />\r •\tparola – string <br />\r  2.\tMembri_proiecte - cu câmpurile:<br />\r •\tid_proiect - number <br />\r •\tid_student_mp - number <br />\r  3.\tTesteri_proiecte - cu câmpurile:<br />\r •\tid_proiect - number <br />\r •\tid_student_tst - number <br />\r  4.\tProiecte - cu câmpurile:<br />\r •\tid_proiect - number <br />\r •\tid_student_autor - number <br />\r •\tnume_proiect – string <br />\r •\tstatus_proiect -string <br />\r •\tlink_repository - string <br />\r  5.\tBuguri - cu câmpurile:<br />\r •\tid_bug – number <br />\r •\tid_proiect - number <br />\r •\tid_tst - number <br />\r •\tseveritate - string <br />\r •\tprioritate_de_rezolvare - string <br />\r •\tdescriere - string <br />\r •\tlink_commit_bug – string <br />\r •\tid_membru – number unique <br />\r •\tstatus_rezolvare - string <br />\r •\tlink_commit_rezolvare – string <br /><br />\r &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Relațiile dintre tabele vor fi următoarele: <br />\r •\tStudenți - Proiecte -> mulți-la-mulți  <br />\r Vom avea tabelele intermediare Membri-proiecte si Testeri-proiecte pentru a face legătura între Studenți și Proiecte. <br /> \r •\tProiecte - Buguri –> 1-la-mulți <br />\r •\tStudenți – Buguri: <br />\r a)\tTST– Buguri -> 1-la-mulți <br />\r b)\tMP – Buguri -> 1-la-1 <br />\r ![image_2021-11-29_134931](https://user-images.githubusercontent.com/74931542/143862936-986d0573-f10a-4975-a3e5-c2cf40d3a380.png)\r <br/>",
+  "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon index.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/denisa-iordache/Proiect_TW_Donald_DAC.git"
+    "server": "nodemon index.js"
   },
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/denisa-iordache/Proiect_TW_Donald_DAC/issues"
-  },
-  "homepage": "https://github.com/denisa-iordache/Proiect_TW_Donald_DAC#readme",
   "dependencies": {
     "express": "^4.17.1",
-    "sequelize": "^6.12.0-beta.3",
+    "sequelize": "^6.12.0-alpha.1",
     "sqlite3": "^5.0.2"
   },
   "devDependencies": {
