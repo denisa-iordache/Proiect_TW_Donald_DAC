@@ -14,28 +14,42 @@ const Bug = require("./models/bug");
 const { noExtendRight } = require("sequelize/dist/lib/operators");
 
 // Define entities relationship
+Project.hasMany(Bug, { foreignKey: 'id_proiect' }); // in bug se adauga id_proiect
+// Bug.belongsTo(Project); //acelasi lucru ca linia de mai sus
+//ar trb folosite impreuna cred, dar daca specific foreignKey, mai pune si el projectId..
+
+// un bug apartine unui singur student
+Student.hasOne(Bug, { foreignKey: 'id_membru'/*, foreignKeyConstraint: true */ }); // in bug se adauga id_membru
+// se adauga in Bug campul id_membru -> studentul care a preluat bug-ul spre rezolvare
+// Bug.belongsTo(Student, { foreignKey: 'id_membru'}); // echivalent
+
+// Student.hasMany(Bug, { foreignKey: 'id_tester'/*, foreignKeyConstraint: true */});
+// se adauga in Bug campul id_tester -> studentul care a initiat bug-ul
+// nu prea are relevanta..un bug poate fi initiat doar un tester
+// Bug.belongsTo(Student);
+
 Student.belongsToMany(Project, {
+  as: "StudentMembru",//"membru",
   through: "membriProject",
-  as: "StudentMembru",
+  foreignKey: "id_student"
 });
 Project.belongsToMany(Student, {
+  as: "ProiectMembri", //"membru",
   through: "membriProject",
-  as: "ProiectMembri",
+  foreignKey: "id_proiect"
 });
 
 Student.belongsToMany(Project, {
   as: "StudentTester",
   through: "testeriProject",
+  foreignKey: "id_student"
 });
 Project.belongsToMany(Student, {
   as: "ProiectTesteri",
   through: "testeriProject",
+  foreignKey: "id_proiect"
 });
 
-Project.hasMany(Bug);
-
-Student.hasOne(Bug, { foreignKey: 'id_membru', foreignKeyConstraint: true });
-Student.hasMany(Bug, { foreignKey: 'id_tester', foreignKeyConstraint: true });
 
 // Express middleware
 application.use(
@@ -296,13 +310,13 @@ application.post(
 );
 
 /**
- * GET - preluarea unui anumit bug dintr-un animit proiect
+ * GET - preluarea unui anumit bug dintr-un anumit proiect
  */
 application.get("/projects/:projectId/bugs/:bugId", async (req, res, next) => {
   try {
     const project = await Project.findByPk(req.params.projectId);
     if (project) {
-      const bugs = await project.getBugs({ id: req.params.bugId });
+      const bugs = await project.getBugs({ where: { id: req.params.bugId } }); // where ca altfel il ia mereu pe primul
       const bug = bugs.shift();
       if (bug) {
         return res.status(200).json(bug);
@@ -328,7 +342,7 @@ application.delete(
     try {
       const project = await Project.findByPk(request.params.projectId);
       if (project) {
-        const bugs = await project.getBugs({ id: request.params.bugId });
+        const bugs = await project.getBugs({ where: { id: request.params.bugId } });
         const bug = bugs.shift();
         if (bug) {
           await bug.destroy();
@@ -354,7 +368,7 @@ application.put(
     try {
       const project = await Project.findByPk(request.params.projectId);
       if (project) {
-        const bugs = await project.getBugs({ id: request.params.bugId });
+        const bugs = await project.getBugs({ where: { id: request.params.bugId } });
         const bug = bugs.shift();
         if (bug) {
           await bug.update(request.body);
@@ -376,9 +390,8 @@ application.put(
   }
 );
 
-//TODO - Restul
 
-/**
+/** TODO
  * GET - afisare bug-uri pentru un student.
  */
 application.get(
@@ -403,8 +416,8 @@ application.get(
   }
 );
 
-/**
- * POST - adaugare bug la student.
+/** TODO
+ * POST - adaugare student la bug.
  */
 application.post(
   "/students/:studentId/projects/:projectId/bugs/:bugId",
@@ -413,10 +426,10 @@ application.post(
       const student = await Student.findByPk(request.params.studentId);
       const project = await Project.findByPk(request.params.projectId);
       if (student && project) {
-        const bugs = await project.getBugs({ id: request.params.bugId });
+        const bugs = await project.getBugs({ where: { id: request.params.bugId } });
         const bug = bugs.shift();
         if (bug) {
-          student.addBug(bug);
+          student.addBug(bug); // student.addBug is not a function
           student.save();
           response.sendStatus(204);
         } else {
@@ -431,40 +444,92 @@ application.post(
   }
 );
 
-/**
- * GET student enrollements to Projects.
+// application.post(
+//   "/students/:studentId/bugs/:bugId",
+//   async (request, response, next) => {
+//     try {
+//       const student = await Student.findByPk(request.params.studentId);
+//       if (student) {
+//         const bug = await Bug.findByPk(request.params.bugId);
+//         if (bug) {
+//           student.addBug(bug); // student.addBug is not a function
+//           student.save();
+//           response.sendStatus(204);
+//         } else {
+//           response.sendStatus(404);
+//         }
+//       } else {
+//         response.sendStatus(404);
+//       }
+//     } catch (error) {
+//       next(error);
+//     }
+//   }
+// );
+
+/** 
+ * GET - preluarea tuturor proiectelor pentru un anumit MP
  */
- application.get(
+application.get(
   "/students/:studentId/membriProject",
   async (request, response, next) => {
     try {
-      const student = await Student.findByPk(request.params.studentId);
+      const student = await Student.findByPk(request.params.studentId, {
+        include: "StudentMembru"//[{ model: Project, as: "StudentMembru" }]
+      });
       if (student) {
-        const projects = await student.getProjects({ attributes: ["id"] });
+        const projects = await student.getStudentMembru(/*{ attributes: ["id"] }*/);
         if (projects.length > 0) {
           response.json(projects);
         } else {
-          response.sendStatus(204);
+          response.sendStatus(204).json({ message: "No project found." });
         }
       } else {
-        response.sendStatus(404);
+        response.status(404).json({ message: "404 - Student Not Found!" });
       }
     } catch (error) {
       next(error);
     }
   }
 );
+
+/** 
+ * GET - preluarea tuturor membrilor dintr-un anumit proiect
+ */
+ application.get(
+  "/projects/:projectId/students",
+  async (request, response, next) => {
+    try {
+      const project = await Project.findByPk(request.params.projectId, { include: "ProiectMembri" });
+      if (project) {
+        const students = await project.getProiectMembri(/*{ attributes: ["id"] }*/);
+        if (students.length > 0) {
+          response.json(students);
+        } /*else {
+          response.sendStatus(204).json({ message: "No student found." });
+        }*/
+      } else {
+        response.status(404).json({ message: "404 - Project Not Found!" });
+      }
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
 /**
- * POST to enroll a student to a Project.
+ * POST - adaugarea unui membru la un anumit proiect
  */
 application.post(
   "/students/:studentId/membriProject/:projectId",
   async (request, response, next) => {
     try {
       const student = await Student.findByPk(request.params.studentId);
-      const project = await Project.findByPk(request.params.projectId);
+      const project = await Project.findByPk(request.params.projectId, {
+        include: "ProiectMembri"//[{ model: Student, as: "ProiectMembri"/*"membru"*/ }]
+      });
       if (student && project) {
-        student.addProject(project);
+        student.addStudentMembru(project); //asa merge, adauga studentii in membriProject
         student.save();
         response.sendStatus(204);
       } else {
@@ -476,18 +541,23 @@ application.post(
   }
 );
 
-/**
- * GET student enrollements to Projects.
+/** 
+ * GET - preluarea tuturor proiectelor pentru un anumit TST
  */
 application.get(
   "/students/:studentId/testeriProject",
   async (request, response, next) => {
     try {
       const student = await Student.findByPk(request.params.studentId, {
-        include: [{ model: Project, as: "StudentTester" }],
+        include: "StudentTester"//[{ model: Project, as: "StudentTester" }],
       });
       if (student) {
-        response.status(200).json(student.projects);
+        const projects = await student.getStudentTester();
+        if (projects.length > 0) {
+          response.json(projects);
+        } else {
+          response.sendStatus(204).json({ message: "No project found." });
+        }
       } else {
         response.status(404).json({ message: "404 - Student Not Found!" });
       }
@@ -497,7 +567,7 @@ application.get(
   }
 );
 /**
- * POST to enroll a student to a Project.
+ * POST - adaugarea unui tester la un anumit proiect
  */
 application.post(
   "/students/:studentId/testeriProject/:projectId",
@@ -505,10 +575,10 @@ application.post(
     try {
       const student = await Student.findByPk(request.params.studentId);
       const project = await Project.findByPk(request.params.projectId, {
-        include: [{ model: Student, as: "ProiectTesteri" }],
+        include: "ProiectTesteri"//[{ model: Student, as: "ProiectTesteri" }],
       });
       if (student && project) {
-        student.addProject(project);
+        student.addStudentTester(project); // adauga studentul in testeriProject 
         await student.save();
         response.sendStatus(204);
       } else {

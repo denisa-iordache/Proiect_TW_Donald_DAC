@@ -27,13 +27,14 @@ const Bug = sequelize.define("bug", {
       is: /^(([A-Za-z0-9]+@|http(|s)\:\/\/)|(http(|s)\:\/\/[A-Za-z0-9]+@))([A-Za-z0-9.]+(:\d+)?)(?::|\/)([\d\/\w.-]+?)(\.git){1}$/i,
     },
   },
-  status_rezolvare: {
+  status_rezolvare: { //by default ar trb sa fie "Nepreluat", cand un stud il ia spre rezolvare sa se schimbe
+    //si se si adauga id_membru coresunzator
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: false, 
   },
   link_commit_rezolvare: {
     type: DataTypes.STRING,
-    allowNull: false,
+    // allowNull: false, //initial este null, abia dupa ce se rezolva bug-ul o sa fie si link-ul
     validate: {
       is: /^(([A-Za-z0-9]+@|http(|s)\:\/\/)|(http(|s)\:\/\/[A-Za-z0-9]+@))([A-Za-z0-9.]+(:\d+)?)(?::|\/)([\d\/\w.-]+?)(\.git){1}$/i,
     },
