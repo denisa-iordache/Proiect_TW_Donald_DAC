@@ -1,0 +1,676 @@
+{
+	"info": {
+		"_postman_id": "e490edbe-e8a9-4ba0-8948-2622d4fe5557",
+		"name": "S10",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "[PUT] CREATE/REFRESH THE DATABASE",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"/"
+					]
+				},
+				"description": "CREATE/WIPE-OUT THE DATABASE"
+			},
+			"response": []
+		},
+		{
+			"name": "[POST] A STUDENT",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nume\": \"Iordache\",\n\t\"prenume\": \"Denisa\",\n\t\"email\": \"iordachedenisa19@stud.ase.ro\",\n\t\"username\": \"iordachedenisa19\",\n\t\"parola\": \"parola\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/students",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"students"
+					]
+				},
+				"description": "Add a new student in the database."
+			},
+			"response": []
+		},
+		{
+			"name": "[GET] ALL STUDENTS",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/students",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"students"
+					]
+				},
+				"description": "Return all the existing students in the database"
+			},
+			"response": []
+		},
+		{
+			"name": "[GET] A SPECIFIC STUDENT",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/students/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"students",
+						"1"
+					]
+				},
+				"description": "Get student by identifier"
+			},
+			"response": []
+		},
+		{
+			"name": "[PUT] TO UPDATE A STUDENT",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nume\": \"Iordache\",\n\t\"prenume\": \"Denisa\",\n\t\"email\": \"iordachedenisa19@stud.ase.ro\",\n\t\"username\": \"iordachedenisa19\",\n\t\"parola\": \"parola1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/students/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"students",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[DELETE] A STUDENT",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/students/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"students",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[POST] A PROJECT",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id_autor\": \"1\",\n\t\"nume_proiect\": \"Proiect TW\",\n\t\"status_proiect\": \"Deschis\",\n\t\"link_repository\": \"https://github.com/denisa-iordache/Proiect_TW_Donald_DAC.git\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/projects",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"projects"
+					]
+				},
+				"description": "Add a project to the database"
+			},
+			"response": []
+		},
+		{
+			"name": "[GET] ALL THE PROJECTS",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/projects",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"projects"
+					]
+				},
+				"description": "Get all the projects from the database"
+			},
+			"response": []
+		},
+		{
+			"name": "[GET] A SPECIFIC PROJECT",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/projects/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"projects",
+						"1"
+					]
+				},
+				"description": "Get project by identifier"
+			},
+			"response": []
+		},
+		{
+			"name": "[PUT] TO UPDATE A PROJECT",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nume_proiect\": \"Proiect TW\",\n\t\"status_proiect\": \"In testare\",\n\t\"link_repository\": \"https://github.com/denisa-iordache/Proiect_TW_Donald_DAC.git\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/projects/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"projects",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[DELETE] A PROJECT",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/projects/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"projects",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[POST] A BUG TO A PROJECT",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"severitate\": \"redusa\",\n\t\"prioritate_de_rezolvare\": \"mica\",\n\t\"descriere\": \"De rezolvat cat mai repede.\",\n\t\"link_commit_bug\": \"https://github.com/denisa-iordache/Proiect_TW_Donald_DAC.git\",\n\t\"status_rezolvare\": \"In rezolvare\",\n\t\"link_commit_rezolvare\": \"\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/studentsTST/2/projects/1/bugs",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"studentsTST",
+						"2",
+						"projects",
+						"1",
+						"bugs"
+					]
+				},
+				"description": "Add a new bug to a existing project in the database."
+			},
+			"response": []
+		},
+		{
+			"name": "[GET] THE BUGS OF A SPECIFIC PROJECT",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/projects/1/bugs",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"projects",
+						"1",
+						"bugs"
+					]
+				},
+				"description": "Get the bugs of a given project identifier"
+			},
+			"response": []
+		},
+		{
+			"name": "[GET] A BUG FROM A PARTICULAR PROJECT BY ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/projects/1/bugs/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"projects",
+						"1",
+						"bugs",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[PUT] TO UPDATE A BUG FROM A PROJECT",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"severitate\": \"medie\",\n\t\"prioritate_de_rezolvare\": \"mica\",\n\t\"descriere\": \"De rezolvat cat mai repede.\",\n\t\"link_commit_bug\": \"https://github.com/denisa-iordache/Proiect_TW_Donald_DAC.git\",\n\t\"status_rezolvare\": \"In rezolvare\",\n\t\"link_commit_rezolvare\": \"\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/projects/1/bugs/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"projects",
+						"1",
+						"bugs",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[DELETE] A BUG FROM A PROJECT",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/projects/1/bugs/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"projects",
+						"1",
+						"bugs",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[POST] A MEMBER TO A PROJECT",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/students/1/membriProject/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"students",
+						"1",
+						"membriProject",
+						"1"
+					]
+				},
+				"description": "Add a MEMBER to a existing PROJECT in the database."
+			},
+			"response": []
+		},
+		{
+			"name": "[GET] THE MEMBERS OF A SPECIFIC PROJECT",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/projects/1/students",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"projects",
+						"1",
+						"students"
+					]
+				},
+				"description": "Get the members of a given project identifier"
+			},
+			"response": []
+		},
+		{
+			"name": "[GET] THE PROJECTS OF A SPECIFIC MEMBER",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/students/1/membriProject",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"students",
+						"1",
+						"membriProject"
+					]
+				},
+				"description": "Get the projects of a given member identifier"
+			},
+			"response": []
+		},
+		{
+			"name": "[POST] A TESTER TO A PROJECT",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/students/2/testeriProject/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"students",
+						"2",
+						"testeriProject",
+						"1"
+					]
+				},
+				"description": "Add a tester to a existing project in the database."
+			},
+			"response": []
+		},
+		{
+			"name": "[GET] THE TESTERS OF A SPECIFIC PROJECT",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/projects/1/studentstst",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"projects",
+						"1",
+						"students"
+					]
+				},
+				"description": "Get the testers of a given project identifier"
+			},
+			"response": []
+		},
+		{
+			"name": "[GET] THE PROJECTS OF A SPECIFIC TESTER",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/students/1/testeriProject",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"students",
+						"2",
+						"testeriProject"
+					]
+				},
+				"description": "Get the projects of a given tester identifier"
+			},
+			"response": []
+		},
+		{
+			"name": "[POST] A MEMBER TO A BUG",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/studentsMP/1/bugs/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"studentsMP",
+						"1",
+						"bugs",
+						"1"
+					]
+				},
+				"description": "Add a MEMBER to a existing bug in the database."
+			},
+			"response": []
+		},
+		{
+			"name": "[GET] THE BUGS OF A SPECIFIC MEMBER",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/studentsMP/1/bugs",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"studentsMP",
+						"1",
+						"bugs"
+					]
+				},
+				"description": "Get the member of a given member identifier"
+			},
+			"response": []
+		},
+		{
+			"name": "[GET] THE BUGS OF A SPECIFIC TESTER",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/studentsTST/2/bugs",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"studentsTST",
+						"1",
+						"bugs"
+					]
+				},
+				"description": "Get the member of a given tester identifier"
+			},
+			"response": []
+		}			
+	]
+}

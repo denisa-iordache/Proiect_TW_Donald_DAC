@@ -3,9 +3,13 @@ const { DataTypes } = require('sequelize');
 
 const Project = sequelize.define('project', {
     id: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
+        type: DataTypes.INTEGER,
         primaryKey: true,
+        autoIncrement: true,
+        allowNull: false
+    },
+    id_autor: {
+        type: DataTypes.INTEGER,
         allowNull: false
     },
     nume_proiect: {

@@ -3,10 +3,10 @@ const { DataTypes } = require("sequelize");
 
 const Bug = sequelize.define("bug", {
   id: {
-    type: DataTypes.UUID,
-    defaultValue: DataTypes.UUIDV4,
-    primaryKey: true,
-    allowNull: false,
+    type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+        allowNull: false
   },
   severitate: {
     type: DataTypes.STRING,
@@ -35,9 +35,9 @@ const Bug = sequelize.define("bug", {
   link_commit_rezolvare: {
     type: DataTypes.STRING,
     // allowNull: false, //initial este null, abia dupa ce se rezolva bug-ul o sa fie si link-ul
-    validate: {
-      is: /^(([A-Za-z0-9]+@|http(|s)\:\/\/)|(http(|s)\:\/\/[A-Za-z0-9]+@))([A-Za-z0-9.]+(:\d+)?)(?::|\/)([\d\/\w.-]+?)(\.git){1}$/i,
-    },
+    // validate: {
+    //   is: /^(([A-Za-z0-9]+@|http(|s)\:\/\/)|(http(|s)\:\/\/[A-Za-z0-9]+@))([A-Za-z0-9.]+(:\d+)?)(?::|\/)([\d\/\w.-]+?)(\.git){1}$/i,
+    // },
   },
 });
 

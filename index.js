@@ -14,42 +14,32 @@ const Bug = require("./models/bug");
 const { noExtendRight } = require("sequelize/dist/lib/operators");
 
 // Define entities relationship
-Project.hasMany(Bug, { foreignKey: 'id_proiect' }); // in bug se adauga id_proiect
-// Bug.belongsTo(Project); //acelasi lucru ca linia de mai sus
-//ar trb folosite impreuna cred, dar daca specific foreignKey, mai pune si el projectId..
-
-// un bug apartine unui singur student
-Student.hasOne(Bug, { foreignKey: 'id_membru'/*, foreignKeyConstraint: true */ }); // in bug se adauga id_membru
-// se adauga in Bug campul id_membru -> studentul care a preluat bug-ul spre rezolvare
-// Bug.belongsTo(Student, { foreignKey: 'id_membru'}); // echivalent
-
-// Student.hasMany(Bug, { foreignKey: 'id_tester'/*, foreignKeyConstraint: true */});
-// se adauga in Bug campul id_tester -> studentul care a initiat bug-ul
-// nu prea are relevanta..un bug poate fi initiat doar un tester
-// Bug.belongsTo(Student);
+Project.hasMany(Bug, { foreignKey: "id_proiect" }); // in bug se adauga id_proiect
 
 Student.belongsToMany(Project, {
-  as: "StudentMembru",//"membru",
+  as: "StudentMembru", //"membru",
   through: "membriProject",
-  foreignKey: "id_student"
+  foreignKey: "id_student",
 });
 Project.belongsToMany(Student, {
   as: "ProiectMembri", //"membru",
   through: "membriProject",
-  foreignKey: "id_proiect"
+  foreignKey: "id_proiect",
 });
 
 Student.belongsToMany(Project, {
   as: "StudentTester",
   through: "testeriProject",
-  foreignKey: "id_student"
+  foreignKey: "id_student",
 });
 Project.belongsToMany(Student, {
   as: "ProiectTesteri",
   through: "testeriProject",
-  foreignKey: "id_proiect"
+  foreignKey: "id_proiect",
 });
 
+Student.hasMany(Bug, { as: "StdMp", foreignKey: "id_membru" }); // si membrul de proiect are mai multe bug-uri, validarea trebuie facuta din front ca el sa aiba un singur bug spre rezolvare la un moment dat
+Student.hasMany(Bug, { as: "StdTst", foreignKey: "id_tester" });
 
 // Express middleware
 application.use(
@@ -288,16 +278,19 @@ application.get(
 );
 
 /**
- * POST - adaugare bug la proiect.
+ * POST - testerul adauga un bug la un anumit proiect.
  */
 application.post(
-  "/projects/:projectId/bugs",
+  "/studentsTST/:studentId/projects/:projectId/bugs",
   async (request, response, next) => {
     try {
+      const student = await Student.findByPk(request.params.studentId);
       const project = await Project.findByPk(request.params.projectId);
       if (project) {
         const bug = await Bug.create(request.body);
+        student.addStdTst(bug);
         project.addBug(bug);
+        await student.save();
         await project.save();
         response.status(201).location(bug.id).send();
       } else {
@@ -308,6 +301,28 @@ application.post(
     }
   }
 );
+
+// /**
+//  * POST - adaugare bug la proiect.
+//  */
+// application.post(
+//   "/projects/:projectId/bugs",
+//   async (request, response, next) => {
+//     try {
+//       const project = await Project.findByPk(request.params.projectId);
+//       if (project) {
+//         const bug = await Bug.create(request.body);
+//         project.addBug(bug);
+//         await project.save();
+//         response.status(201).location(bug.id).send();
+//       } else {
+//         response.sendStatus(404);
+//       }
+//     } catch (error) {
+//       next(error);
+//     }
+//   }
+// );
 
 /**
  * GET - preluarea unui anumit bug dintr-un anumit proiect
@@ -342,7 +357,9 @@ application.delete(
     try {
       const project = await Project.findByPk(request.params.projectId);
       if (project) {
-        const bugs = await project.getBugs({ where: { id: request.params.bugId } });
+        const bugs = await project.getBugs({
+          where: { id: request.params.bugId },
+        });
         const bug = bugs.shift();
         if (bug) {
           await bug.destroy();
@@ -368,7 +385,9 @@ application.put(
     try {
       const project = await Project.findByPk(request.params.projectId);
       if (project) {
-        const bugs = await project.getBugs({ where: { id: request.params.bugId } });
+        const bugs = await project.getBugs({
+          where: { id: request.params.bugId },
+        });
         const bug = bugs.shift();
         if (bug) {
           await bug.update(request.body);
@@ -390,46 +409,18 @@ application.put(
   }
 );
 
-
-/** TODO
- * GET - afisare bug-uri pentru un student.
- */
-application.get(
-  "/students/:studentId/projects/:projectId/bugs",
-  async (request, response, next) => {
-    try {
-      const student = await Student.findByPk(request.params.studentId);
-      const project = await Project.findByPk(request.params.projectId);
-      if (student && project) {
-        const bugs = await project.getBugs();
-        if (bugs.length > 0) {
-          response.json(bugs);
-        } else {
-          response.sendStatus(204);
-        }
-      } else {
-        response.sendStatus(404);
-      }
-    } catch (error) {
-      next(error);
-    }
-  }
-);
-
-/** TODO
- * POST - adaugare student la bug.
+/**
+ * POST - Adauga bug la student membru
  */
 application.post(
-  "/students/:studentId/projects/:projectId/bugs/:bugId",
+  "/studentsMP/:studentId/bugs/:bugId",
   async (request, response, next) => {
     try {
       const student = await Student.findByPk(request.params.studentId);
-      const project = await Project.findByPk(request.params.projectId);
-      if (student && project) {
-        const bugs = await project.getBugs({ where: { id: request.params.bugId } });
-        const bug = bugs.shift();
+      if (student) {
+        const bug = await Bug.findByPk(request.params.bugId);
         if (bug) {
-          student.addBug(bug); // student.addBug is not a function
+          student.addStdMp(bug); // student.addBug is not a function
           student.save();
           response.sendStatus(204);
         } else {
@@ -444,15 +435,44 @@ application.post(
   }
 );
 
+/**
+ * GET - Preia bug-urile unui membru
+ */
+application.get(
+  "/studentsMP/:studentId/bugs",
+  async (request, response, next) => {
+    try {
+      const student = await Student.findByPk(request.params.studentId, {
+        include: "StdMp", //[{ model: Project, as: "StudentMembru" }]
+      });
+      if (student) {
+        const bugs = await student.getStdMp(/*{ attributes: ["id"] }*/);
+        if (bugs.length > 0) {
+          response.json(bugs);
+        } else {
+          response.sendStatus(204).json({ message: "No bug found." });
+        }
+      } else {
+        response.status(404).json({ message: "404 - Student Not Found!" });
+      }
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+// /**
+//  * POST - Adauga bug la student tester
+//  */
 // application.post(
-//   "/students/:studentId/bugs/:bugId",
+//   "/studentsTST/:studentId/bugs/:bugId",
 //   async (request, response, next) => {
 //     try {
 //       const student = await Student.findByPk(request.params.studentId);
 //       if (student) {
 //         const bug = await Bug.findByPk(request.params.bugId);
 //         if (bug) {
-//           student.addBug(bug); // student.addBug is not a function
+//           student.addStdTst(bug); // student.addBug is not a function
 //           student.save();
 //           response.sendStatus(204);
 //         } else {
@@ -467,7 +487,33 @@ application.post(
 //   }
 // );
 
-/** 
+/**
+ * GET - Preia bug-urile unui tester
+ */
+application.get(
+  "/studentsTST/:studentId/bugs",
+  async (request, response, next) => {
+    try {
+      const student = await Student.findByPk(request.params.studentId, {
+        include: "StdTst", //[{ model: Project, as: "StudentMembru" }]
+      });
+      if (student) {
+        const bugs = await student.getStdTst(/*{ attributes: ["id"] }*/);
+        if (bugs.length > 0) {
+          response.json(bugs);
+        } else {
+          response.sendStatus(204).json({ message: "No bug found." });
+        }
+      } else {
+        response.status(404).json({ message: "404 - Student Not Found!" });
+      }
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+/**
  * GET - preluarea tuturor proiectelor pentru un anumit MP
  */
 application.get(
@@ -475,10 +521,11 @@ application.get(
   async (request, response, next) => {
     try {
       const student = await Student.findByPk(request.params.studentId, {
-        include: "StudentMembru"//[{ model: Project, as: "StudentMembru" }]
+        include: "StudentMembru", //[{ model: Project, as: "StudentMembru" }]
       });
       if (student) {
-        const projects = await student.getStudentMembru(/*{ attributes: ["id"] }*/);
+        const projects =
+          await student.getStudentMembru(/*{ attributes: ["id"] }*/);
         if (projects.length > 0) {
           response.json(projects);
         } else {
@@ -493,16 +540,19 @@ application.get(
   }
 );
 
-/** 
+/**
  * GET - preluarea tuturor membrilor dintr-un anumit proiect
  */
- application.get(
+application.get(
   "/projects/:projectId/students",
   async (request, response, next) => {
     try {
-      const project = await Project.findByPk(request.params.projectId, { include: "ProiectMembri" });
+      const project = await Project.findByPk(request.params.projectId, {
+        include: "ProiectMembri",
+      });
       if (project) {
-        const students = await project.getProiectMembri(/*{ attributes: ["id"] }*/);
+        const students =
+          await project.getProiectMembri(/*{ attributes: ["id"] }*/);
         if (students.length > 0) {
           response.json(students);
         } /*else {
@@ -526,7 +576,7 @@ application.post(
     try {
       const student = await Student.findByPk(request.params.studentId);
       const project = await Project.findByPk(request.params.projectId, {
-        include: "ProiectMembri"//[{ model: Student, as: "ProiectMembri"/*"membru"*/ }]
+        include: "ProiectMembri", //[{ model: Student, as: "ProiectMembri"/*"membru"*/ }]
       });
       if (student && project) {
         student.addStudentMembru(project); //asa merge, adauga studentii in membriProject
@@ -541,7 +591,7 @@ application.post(
   }
 );
 
-/** 
+/**
  * GET - preluarea tuturor proiectelor pentru un anumit TST
  */
 application.get(
@@ -549,7 +599,7 @@ application.get(
   async (request, response, next) => {
     try {
       const student = await Student.findByPk(request.params.studentId, {
-        include: "StudentTester"//[{ model: Project, as: "StudentTester" }],
+        include: "StudentTester", //[{ model: Project, as: "StudentTester" }],
       });
       if (student) {
         const projects = await student.getStudentTester();
@@ -566,6 +616,34 @@ application.get(
     }
   }
 );
+
+/**
+ * GET - preluarea tuturor testerilor dintr-un anumit proiect
+ */
+application.get(
+  "/projects/:projectId/studentstst",
+  async (request, response, next) => {
+    try {
+      const project = await Project.findByPk(request.params.projectId, {
+        include: "ProiectTesteri",
+      });
+      if (project) {
+        const students =
+          await project.getProiectTesteri(/*{ attributes: ["id"] }*/);
+        if (students.length > 0) {
+          response.json(students);
+        } /*else {
+          response.sendStatus(204).json({ message: "No student found." });
+        }*/
+      } else {
+        response.status(404).json({ message: "404 - Project Not Found!" });
+      }
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
 /**
  * POST - adaugarea unui tester la un anumit proiect
  */
@@ -575,10 +653,10 @@ application.post(
     try {
       const student = await Student.findByPk(request.params.studentId);
       const project = await Project.findByPk(request.params.projectId, {
-        include: "ProiectTesteri"//[{ model: Student, as: "ProiectTesteri" }],
+        include: "ProiectTesteri", //[{ model: Student, as: "ProiectTesteri" }],
       });
       if (student && project) {
-        student.addStudentTester(project); // adauga studentul in testeriProject 
+        student.addStudentTester(project); // adauga studentul in testeriProject
         await student.save();
         response.sendStatus(204);
       } else {
