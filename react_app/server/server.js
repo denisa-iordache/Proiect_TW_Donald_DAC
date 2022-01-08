@@ -1,8 +1,41 @@
 "use strict";
 // Express Initialisation
 const express = require("express");
-const application = express();
 const port = process.env.PORT || 8080;
+const application = express();
+
+const cors = require("cors");
+application.use(express.json());
+application.use(
+  cors({
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST", "OPTIONS"],
+    credentials: true,
+  })
+);
+
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
+
+const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
+const session = require("express-session");
+
+application.use(cookieParser());
+application.use(bodyParser.urlencoded({ extended: true }));
+application.use(
+  session({
+    key: "userId",
+    secret: "terces",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      expires: 60 * 60 * 24, //corespunde cu 24h
+    },
+  })
+);
+
+const jwt = require("jsonwebtoken"); //o sa folosim tokenul pt fiecare request facut de user pe site
 
 // Sequelize Initialisation
 const sequelize = require("./sequelize");
@@ -12,6 +45,7 @@ const Student = require("./models/student");
 const Project = require("./models/project");
 const Bug = require("./models/bug");
 const { noExtendRight } = require("sequelize/dist/lib/operators");
+const { urlencoded } = require("body-parser");
 
 // Define entities relationship
 Project.hasMany(Bug, { foreignKey: "id_proiect" }); // in bug se adauga id_proiect
@@ -102,6 +136,28 @@ application.post("/students", async (request, response, next) => {
 });
 
 /**
+ * POST - adaugare student in baza de date - REGISTER
+ */
+application.post("/studentsregister", async (request, response, next) => {
+  try {
+    bcrypt.hash(request.body.parola, saltRounds, async (err, hash) => {
+      const student = await Student.create({
+        nume: request.body.nume,
+        prenume: request.body.prenume,
+        email: request.body.email,
+        username: request.body.username,
+        parola: hash,
+      });
+      response.send({ message: "Utilizator inregistrat cu succes!" });
+      //response.status(201).location(student.id).send();
+    });
+  } catch (error) {
+    response.send({ message: "Inregistrarea nu s-a putut realiza cu succes!" });
+    next(error);
+  }
+});
+
+/**
  * GET - afisarea unui anumit student
  */
 application.get("/students/:studentId", async (req, res, next) => {
@@ -113,6 +169,80 @@ application.get("/students/:studentId", async (req, res, next) => {
       return res.status(404).json({
         error: `Studentul cu id-ul ${req.params.studentId} nu a fost gasit!`,
       });
+    }
+  } catch (err) {
+    // next(err)
+    return res.status(500).json(err);
+  }
+});
+
+const verificareJWT = (req, res, next) => {
+  const token = req.header("x-access-token");
+  if (!token) {
+    res.send("Avem nevoie de un token.");
+  } else {
+    jwt.verify(token, "tercestwj", (err, decoded) => {
+      if (err) {
+        res.json({ auth: false, message: "Autentificarea a esuat!" });
+      } else {
+        req.id = decoded.id;
+        next();
+      }
+    });
+  }
+};
+
+//GET - verificare autentificare
+application.get("/studentAuth", verificareJWT, async (req, res, next) => {
+  res.send("Te-ai autentificat cu succes!");
+});
+
+/**
+ * GET - Verificare logare
+ */
+application.get("/studentslogin", async (req, res, next) => {
+  try {
+    if (req.session.student) {
+      res.send({ loggedIn: true, student: req.session.student });
+    } else {
+      res.send({ loggedIn: false });
+    }
+  } catch (err) {
+    // next(err)
+    return res.status(500).json(err);
+  }
+});
+
+/**
+ * POST - Gasirea in baza de date a unui student - LOGIN
+ */
+application.post("/studentslogin", async (req, res, next) => {
+  try {
+    const student = await Student.findOne({
+      where: { username: req.body.username },
+    });
+    if (student) {
+      bcrypt.compare(req.body.parola, student.parola, (error, response) => {
+        if (response) {
+          const id = student.id;
+          const token = jwt.sign({ id }, "tercestwj", {
+            expiresIn: 300, //corespunde cu 5 min
+          });
+          req.session.student = student;
+          res.json({ auth: true, token: token, result: student }); //cand te loghezi in cont se creeaza un token
+          //return res.status(200).json(student);
+        } else {
+          res.json({
+            auth: false,
+            message: "Nume de utilizator sau prola gresita!",
+          });
+          // return res.status(404).json({
+          //   error: `Studentul cu numele ${req.body.username} nu a fost gasit!`,
+          // });
+        }
+      });
+    } else {
+      res.json({ auth: false, message: "Utilizatorul nu exista" });
     }
   } catch (err) {
     // next(err)
@@ -667,3 +797,12 @@ application.post(
     }
   }
 );
+
+//server:
+//npm install cors
+//npm install bcrypt
+//npm install express-session body-parser cookie-parser
+//npm install jsonwebtoken
+
+//client:
+//npm install axios
