@@ -6,7 +6,7 @@ function Header() {
     return (
         <React.Fragment>
             <div className="header">
-                 <Link to='/home'>Bug Tracker</Link>
+                 <Link to='/home' className="logo">Bug Tracker</Link>
                  <div className="header-right">
                      <Link to='/home'>Home</Link>
                      <Link to='/login'>Log In</Link>

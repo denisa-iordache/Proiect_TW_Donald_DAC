@@ -31,6 +31,11 @@ function Register() {
     };
 
     return (
+        <React.Fragment>
+        <link rel="preconnect" href="https://fonts.gstatic.com"></link>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"></link>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet"></link>
+        <link href="./css/Form.css"></link>
         <div className="App">
           <div className="registration">
             <h1>Registration</h1>
@@ -72,6 +77,7 @@ function Register() {
             <button onClick={register}>Register</button>
           </div>
         </div>  
+        </React.Fragment>
       );
  }
 

@@ -1,120 +1,25 @@
-.App {
-  text-align: center;
+body {
+  background-color: #080710;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-* {box-sizing: border-box;}
-
-body { 
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  background-color: #d2e7ec;
-}
-
-.header {
-  overflow: hidden;
-  background-color: #d2f6cb;
-  padding: 20px 10px;
-}
-
-.header a {
-  float: left;
-  color: black;
-  text-align: center;
-  padding: 12px;
-  text-decoration: none;
-  font-size: 18px; 
-  line-height: 25px;
-  border-radius: 4px;
-}
-
-.header a.logo {
-  font-size: 25px;
-  font-weight: bold;
-}
-
-.header a:hover {
-  background-color: #ddd;
-  color: black;
-}
-
-.header a.active {
-  background-color: rgb(78, 146, 214);
-  color: white;
-}
-
-.header-right {
-  float: right;
-}
-
-@media screen and (max-width: 500px) {
-  .header a {
-    float: none;
-    display: block;
-    text-align: left;
-  }
-  
-  .header-right {
-    float: none;
-  }
-}
-
 .background {
   width: 430px;
-  height: 220px;
+  height: 520px;
   position: absolute;
   transform: translate(-50%, -50%);
   left: 50%;
   top: 50%;
 }
-
 .background .shape {
   height: 200px;
-  width: 20px;
+  width: 200px;
   position: absolute;
   border-radius: 50%;
 }
-
 .shape:first-child {
   background: linear-gradient(#1845ad, #23a2f6);
   left: -80px;
   top: -80px;
 }
-
 .shape:last-child {
   background: linear-gradient(to right, #ff512f, #f09819);
   right: -30px;
@@ -122,21 +27,6 @@ body {
 }
 
 .registration {
-  height: 820px;
-  width: 400px;
-  background-color: rgba(255, 255, 255, 0.13);
-  position: absolute;
-  transform: translate(-50%, -50%);
-  top: 50%;
-  left: 50%;
-  border-radius: 10px;
-  backdrop-filter: blur(10px);
-  border: 2px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
-  padding: 50px 35px;
-}
-
-.login {
   height: 520px;
   width: 400px;
   background-color: rgba(255, 255, 255, 0.13);
@@ -150,7 +40,6 @@ body {
   box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
   padding: 50px 35px;
 }
-
 form * {
   font-family: "Poppins", sans-serif;
   color: #ffffff;
@@ -171,7 +60,6 @@ label {
   font-size: 16px;
   font-weight: 500;
 }
-
 input {
   display: block;
   height: 50px;
@@ -183,11 +71,9 @@ input {
   font-size: 14px;
   font-weight: 300;
 }
-
 ::placeholder {
   color: #e5e5e5;
 }
-
 button {
   margin-top: 50px;
   width: 100%;
@@ -221,14 +107,3 @@ button {
 .social i {
   margin-right: 4px;
 }
-
-footer {
-  position: fixed;
-  padding: 10px 10px 0px 10px;
-  bottom: 0;
-  width: 100%;
-  background-color: DarkSalmon;
-  color: white;
-  text-align: center;
-}
-
