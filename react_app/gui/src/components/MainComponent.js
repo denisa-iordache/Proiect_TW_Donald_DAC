@@ -14,17 +14,15 @@ import {Routes, Route, Redirect, BrowserRouter} from 'react-router-dom';
 function Main() {
     return (
         <React.Fragment>
-            <Header/>
-            <div>Hello World from MainComponent -- Test!</div>
             <BrowserRouter>
+                <Header/>
                 <Routes>
                      <Route path='/home' element={<Home/>}/>
                      <Route path='/register' element={<Register/>}/>
                      <Route path='/login' element={<Login/>}/>
-                     {/* <Redirect to='/home'/> */}
                 </Routes>
+                <Footer/>
             </BrowserRouter>
-            <Footer/>
         </React.Fragment>
     )
 }
