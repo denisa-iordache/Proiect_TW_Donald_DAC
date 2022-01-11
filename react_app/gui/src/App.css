@@ -47,7 +47,7 @@ body {
 
 .header {
   overflow: hidden;
-  background-color: #d2f6cb;
+  background-color: #b4f0a8;
   padding: 20px 10px;
 }
 
@@ -230,5 +230,14 @@ footer {
   background-color: DarkSalmon;
   color: white;
   text-align: center;
+}
+
+.homepage {
+  font-family:'Times New Roman', Times, serif;
+  text-align: center;
+  position: inherit;
+  padding-top: 20px;
+  font-size: 30px;
+  font-weight: bolder;
 }
 
