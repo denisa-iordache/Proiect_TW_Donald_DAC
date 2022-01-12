@@ -1,8 +1,43 @@
 import React from "react";
 import '../css/Homepage.css'
 
+import { useState } from "react";
+
+import {Button} from 'react-bootstrap';
+import {Modal} from 'react-bootstrap';
+
+function MyVerticallyCenteredModal(props) {
+  return (
+    <Modal
+      {...props}
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+    >
+      <Modal.Header closeButton>
+        <Modal.Title id="contained-modal-title-vcenter">
+          Modal heading
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <h4>Centered Modal</h4>
+        <p>
+          Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
+          dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
+          consectetur ac, vestibulum at eros.
+        </p>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button onClick={props.onHide}>Close</Button>
+      </Modal.Footer>
+    </Modal>
+  );
+}
+
 function TesterHome() {
   const user = "iFindAllBugs007";
+
+  const [modalShow, setModalShow] = React.useState(false);
 
   return (
     <div className="homepage">
@@ -28,22 +63,28 @@ function TesterHome() {
                 <td>01</td>
                 <td>Tehnologii Web</td>
                 <td>In Progress</td>
-                <td>
-                    <input type="image" className="icons" src="https://cdn-icons-png.flaticon.com/128/709/709612.png" /> 
-                </td>
+                <Button variant="primary" onClick={() => setModalShow(true)}>
+                        View
+                </Button>
               </tr>
               <tr>
                 <td>02</td>
                 <td>Multimedia</td>
                 <td>Done</td>
                 <td>
-                    <input type="image" className="icons" src="https://cdn-icons-png.flaticon.com/128/709/709612.png" /> 
+                <Button variant="primary" onClick={() => setModalShow(true)}>
+                        View
+                </Button>
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
       </section>
+      <MyVerticallyCenteredModal
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+      />
     </div>
   );
 }

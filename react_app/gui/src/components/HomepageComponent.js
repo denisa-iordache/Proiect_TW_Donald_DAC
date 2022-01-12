@@ -15,16 +15,18 @@ function MyVerticallyCenteredModal(props) {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          Modal heading
+          Vizualizare proiect
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <h4>Centered Modal</h4>
+        <h4>Nume Proiect</h4>
         <p>
           Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
           dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
           consectetur ac, vestibulum at eros.
         </p>
+        <div>Status Proiect - </div>
+        <div>Link Repo - </div>
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={props.onHide}>Close</Button>
@@ -37,6 +39,7 @@ function Home() {
   const user = "iFindAllBugs007";
 
   const [modalShow, setModalShow] = React.useState(false);
+  const [modalShowAddProject, setModalShowAddProject] = React.useState(false);
 
   return (
   <React.Fragment>
@@ -65,21 +68,14 @@ function Home() {
                 <td>Tehnologii Web</td>
                 <td>In Progress</td>
                 <td>
-                  <button
-                    type="button"
-                    className="btn btn-info btn-lg"
-                    data-toggle="modal"
-                    data-target="#myModal"
-                  >
-                    Open Modal
-                  </button>
+                    <Button variant="primary" onClick={() => setModalShow(true)}>
+                        View
+                     </Button>
                 </td>
                 <td>
-                  <input
-                    type="image"
-                    className="icons"
-                    src="https://cdn-icons.flaticon.com/png/512/2356/premium/2356780.png?token=exp=1641984823~hmac=421ba9fac1b52664281ba07707b2e045"
-                  />
+                    <Button variant="primary" onClick={() => setModalShow(true)}>
+                        Edit
+                    </Button>
                 </td>
               </tr>
               <tr>
@@ -87,18 +83,14 @@ function Home() {
                 <td>Multimedia</td>
                 <td>Done</td>
                 <td>
-                  <input
-                    type="image"
-                    className="icons"
-                    src="https://cdn-icons-png.flaticon.com/128/709/709612.png"
-                  />
+                  <Button variant="primary" onClick={() => setModalShow(true)}>
+                     View
+                  </Button>
                 </td>
                 <td>
-                  <input
-                    type="image"
-                    className="icons"
-                    src="https://cdn-icons.flaticon.com/png/512/2356/premium/2356780.png?token=exp=1641984823~hmac=421ba9fac1b52664281ba07707b2e045"
-                  />
+                  <Button variant="primary" onClick={() => setModalShow(true)}>
+                     Edit
+                  </Button>
                 </td>
               </tr>
             </tbody>
@@ -107,16 +99,16 @@ function Home() {
       </section>
        {/* <!-- Modal --> */}
        <>
-      <Button variant="primary" onClick={() => setModalShow(true)}>
-        Launch vertically centered modal
-      </Button>
-
       <MyVerticallyCenteredModal
         show={modalShow}
         onHide={() => setModalShow(false)}
       />
     </>
-      <button>ADD PROJECT</button>
+      <button variant="primary" onClick={() => setModalShowAddProject(true)}>ADD PROJECT</button>
+      <MyVerticallyCenteredModal
+        show={modalShowAddProject}
+        onHide={() => setModalShowAddProject(false)}
+      />
     </div>
     </React.Fragment>
   );
