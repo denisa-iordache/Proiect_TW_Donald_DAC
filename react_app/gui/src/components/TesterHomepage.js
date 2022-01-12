@@ -6,7 +6,7 @@ import { useState } from "react";
 import {Button} from 'react-bootstrap';
 import {Modal} from 'react-bootstrap';
 
-function MyVerticallyCenteredModal(props) {
+function ModalAddBug(props) {
   return (
     <Modal
       {...props}
@@ -16,16 +16,19 @@ function MyVerticallyCenteredModal(props) {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          Modal heading
+          Adaugare bug
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <h4>Centered Modal</h4>
-        <p>
-          Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-          dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
-          consectetur ac, vestibulum at eros.
-        </p>
+      <h4>Nume Proiect:</h4> 
+        <div>Severitate - </div>
+        <input type="text"></input>
+        <div>Prioritate de rezolvare - </div>
+        <input type="text"></input>
+        <div>Descriere - </div>
+        <input type="text"></input>
+        <div>Link commit - </div>
+        <input type="text"></input>
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={props.onHide}>Close</Button>
@@ -51,7 +54,7 @@ function TesterHome() {
                 <th>ID</th>
                 <th>Nume Proiect</th>
                 <th>Status</th>
-                <th>View</th>
+                <th>Add Bug</th>
               </tr>
             </thead>
           </table>
@@ -64,7 +67,7 @@ function TesterHome() {
                 <td>Tehnologii Web</td>
                 <td>In Progress</td>
                 <Button variant="primary" onClick={() => setModalShow(true)}>
-                        View
+                        Add
                 </Button>
               </tr>
               <tr>
@@ -81,7 +84,7 @@ function TesterHome() {
           </table>
         </div>
       </section>
-      <MyVerticallyCenteredModal
+      <ModalAddBug
         show={modalShow}
         onHide={() => setModalShow(false)}
       />
