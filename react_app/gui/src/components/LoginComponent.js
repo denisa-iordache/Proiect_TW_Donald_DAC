@@ -1,5 +1,6 @@
 import React from "react";
 import { useEffect, useState } from "react";
+import {Link} from 'react-router-dom';
 
 import Axios from "axios";
 
@@ -51,6 +52,7 @@ function Login() {
       };
 
       return (
+        <React.Fragment>
         <div className="App">
           <div className="login">
             <h1>Login</h1>
@@ -68,12 +70,15 @@ function Login() {
                 setPassword(e.target.value);
               }}
             />
-            <button onClick={login}>Login</button>
+            <Link to="/loginSuccesful">
+                <button onClick={login}>Login</button>
+            </Link>
           </div>
           {loginStatus && (
             <button onClick={studentAuthenticated}>Check if authenticated</button>
           )}
         </div>
+        </React.Fragment>
       );
 }
 

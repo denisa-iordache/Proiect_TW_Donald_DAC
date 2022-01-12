@@ -6,6 +6,9 @@ import Footer from "./FooterComponent";
 import Register from "./RegisterComponent";
 import Login from "./LoginComponent";
 import Home from "./HomepageComponent";
+import SuccesfulLogin from "./SuccessfulLogin";
+import SuccesfulRegistration from "./SuccesfulRegistration";
+import TesterHome from "./TesterHomepage";
 
 import Axios from "axios";
 
@@ -20,6 +23,9 @@ function Main() {
                      <Route path='/home' element={<Home/>}/>
                      <Route path='/register' element={<Register/>}/>
                      <Route path='/login' element={<Login/>}/>
+                     <Route path='/loginSuccesful' element={<SuccesfulLogin/>}/>
+                     <Route path='/registerSuccesful' element={<SuccesfulRegistration/>}/>
+                     <Route path='/testerHomepage' element={<TesterHome/>}/>
                 </Routes>
                 <Footer/>
             </BrowserRouter>

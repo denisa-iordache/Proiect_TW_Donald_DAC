@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 import Axios  from "axios";
 
@@ -74,7 +75,9 @@ function Register() {
                 setPasswordReg(e.target.value);
               }}
             />
-            <button onClick={register}>Register</button>
+            <Link to="/registerSuccesful">
+                  <button onClick={register}>Register</button>
+            </Link>
           </div>
         </div>  
         </React.Fragment>
