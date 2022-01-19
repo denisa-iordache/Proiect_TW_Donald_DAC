@@ -5,13 +5,6 @@ import {Link} from 'react-router-dom';
 import Axios from "axios";
 
 function Login() {
-
-    const [usernameReg, setUsernameReg] = useState("");
-    const [passwordReg, setPasswordReg] = useState("");
-    const [NameReg, setNameReg] = useState("");
-    const [PrenameReg, setPrenameReg] = useState(""); 
-    const [EmailReg, setEmailReg] = useState("");
-  
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
   

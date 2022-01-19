@@ -323,6 +323,48 @@ application.post("/projects", async (request, response, next) => {
 });
 
 /**
+ * POST - adaugare proiect in baza de date
+ */
+application.post("/projectsFront", async (request, response, next) => {
+  try {
+    if (request.session.student) {
+      const proiect = await Project.create({
+        id_autor:request.session.student.id,
+        nume_proiect: request.body.nume_proiect,
+        status_proiect: request.body.status_proiect,
+        link_repository: request.body.link_repository
+      });
+      response.send({ message: "Proiect inregistrat cu succes!" });
+    }
+  } catch (error) {
+    response.send({ message: "Inregistrarea nu s-a putut realiza cu succes!" });
+    next(error);
+  }
+});
+
+/**
+ * GET - afisarea proiectelor pentru un student
+ */
+ application.get("/projectsFront", async (request, response, next) => {
+  try {
+    if (request.session.student) {
+    const projects = await Project.findAll({
+      where: {
+        id_autor: request.session.student.id
+      }
+    });
+    if (projects.length > 0) {
+      response.json(projects);
+    } else {
+      response.sendStatus(204);
+    }
+  }
+  } catch (error) {
+    next(error);
+  }
+});
+
+/**
  * GET - afisarea unui anumit proiect
  */
 application.get("/projects/:projectId", async (req, res, next) => {

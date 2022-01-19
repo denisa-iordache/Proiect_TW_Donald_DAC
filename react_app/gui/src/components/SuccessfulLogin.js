@@ -4,7 +4,8 @@ import '../css/Succesful.css';
 
 function SuccesfulLogin() {
     return(
-        <div>Succesful Login!</div>
+        <div>Succesful Login!
+        </div>
     )
 }
 

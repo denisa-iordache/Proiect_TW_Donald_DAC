@@ -12,11 +12,6 @@ function Register() {
     const [PrenameReg, setPrenameReg] = useState(""); 
     const [EmailReg, setEmailReg] = useState("");
   
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-  
-    const [loginStatus, setLoginStatus] = useState(false);
-  
     Axios.defaults.withCredentials = true;
   
     const register = () => {

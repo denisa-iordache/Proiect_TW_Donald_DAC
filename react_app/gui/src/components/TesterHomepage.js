@@ -37,6 +37,36 @@ function ModalAddBug(props) {
   );
 }
 
+function ModalAddBugs(props) {
+  return (
+    <Modal
+      {...props}
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+    >
+      <Modal.Header closeButton>
+        <Modal.Title id="contained-modal-title-vcenter">
+          Editare proiectul
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <h4>Severitate:</h4>
+        <input type="text"></input>
+        <div>Prioritate de rezolvare - </div>
+        <input type="text"></input>
+        <div>Descriere - </div>
+        <input type="text"></input>
+        <div>Link Commit - </div>
+        <input type="text"></input>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button onClick={props.onHide}>Close</Button>
+      </Modal.Footer>
+    </Modal>
+  );
+}
+
 function TesterHome() {
   const user = "iFindAllBugs007";
 
