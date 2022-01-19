@@ -258,9 +258,9 @@ function Home() {
           <div class="tbl-content">
             <table cellpadding="0" cellspacing="0" border="0">
               <tbody>
-                {getProiecte()}
+                {/* {getProiecte()} */}
                   
-                {/* <tr>
+                <tr>
                   <td>ghgj</td>
                   <td>
                     <Button
@@ -289,8 +289,7 @@ function Home() {
                   </td>
                 </tr>
                 <tr>
-                  <td>02</td>
-                  <td>Tehnologii Web</td>
+                  <td>ghgj</td>
                   <td>
                     <Button
                       variant="primary"
@@ -311,12 +310,12 @@ function Home() {
                   <td>
                     <Button
                       variant="primary"
-                      onClick={() => setModalShowViewProject(true)}
+                      onClick={() => setModalShowBugs(true)}
                     >
                       Vizualizeaza bug-uri
                     </Button>
                   </td>
-                </tr> */}
+                </tr>
               </tbody>
             </table>
           </div>
