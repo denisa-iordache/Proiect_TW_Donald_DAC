@@ -51,7 +51,7 @@ function Register() {
             />
             <label>Email</label>
             <input
-              type="text"
+              type="text" placeholder="numeprenume@stud.ase.ro"
               onChange={(e) => {
                 setEmailReg(e.target.value);
               }}

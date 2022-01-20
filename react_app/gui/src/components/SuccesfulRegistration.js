@@ -5,7 +5,8 @@ import '../css/Succesful.css';
 
 function SuccesfulRegistration() {
     return(
-        <div>Succesful Registration!
+        <div>
+            <p>Te-ai inregistrat cu succes. Iti poti accesa contul apasand pe butonul de mai jos.</p>
             <Link to="/login">
                   <button >Autentifica-te in cont</button>
             </Link>

@@ -213,6 +213,18 @@ application.get("/studentslogin", async (req, res, next) => {
   }
 });
 
+application.get("/studentslog", async (req, res, next) => {
+  try {
+    if (req.session.student) {
+      const prenume = req.session.student.prenume;
+      res.json({prenume:prenume})
+    }
+  } catch (err) {
+    // next(err)
+    return res.status(500).json(err);
+  }
+});
+
 /**
  * POST - Gasirea in baza de date a unui student - LOGIN
  */
@@ -329,10 +341,10 @@ application.post("/projectsFront", async (request, response, next) => {
   try {
     if (request.session.student) {
       const proiect = await Project.create({
-        id_autor:request.session.student.id,
+        id_autor: request.session.student.id,
         nume_proiect: request.body.nume_proiect,
         status_proiect: request.body.status_proiect,
-        link_repository: request.body.link_repository
+        link_repository: request.body.link_repository,
       });
       response.send({ message: "Proiect inregistrat cu succes!" });
     }
@@ -345,20 +357,20 @@ application.post("/projectsFront", async (request, response, next) => {
 /**
  * GET - afisarea proiectelor pentru un student
  */
- application.get("/projectsFront", async (request, response, next) => {
+application.get("/projectsFront", async (request, response, next) => {
   try {
     if (request.session.student) {
-    const projects = await Project.findAll({
-      where: {
-        id_autor: request.session.student.id
-      }
-    });
-    if (projects.length > 0) {
-      response.json(projects);
-    } else {
-      response.sendStatus(204);
+      const projects = await Project.findAll({
+        where: {
+          id_autor: request.session.student.id,
+        },
+      });
+      // if (projects.length > 0) {
+        response.json(projects);
+      // } else {
+      //   response.sendStatus(204);
+      // }
     }
-  }
   } catch (error) {
     next(error);
   }
@@ -470,6 +482,39 @@ application.post(
       }
     } catch (error) {
       next(error);
+    }
+  }
+);
+
+application.post(
+  "/bugs",
+  async (request, response, next) => {
+    try {
+      if (request.session.student) {
+      const student = await Student.findByPk(request.session.student.id);
+      const project = await Project.findOne({where: { nume_proiect: request.body.nume_proiect },});
+      if (project) {
+        const bug = await Bug.create({
+          severitate: request.body.severitate,
+          prioritate_de_rezolvare: request.body.prioritate_de_rezolvare,
+          descriere: request.body.descriere,
+          link_commit_bug: request.body.link_commit_bug,
+          status_rezolvare: request.body.status_rezolvare,
+          link_commit_rezolvare:request.body.link_commit_rezolvare,
+        });
+        student.addStdTst(bug);
+        project.addBug(bug);
+        await student.save();
+        await project.save();
+        //response.status(201).location(bug.id).send();
+        response.send({ message: "Bug inregistrat cu succes!" });
+      } else {
+        //response.sendStatus(404);
+        response.send({ message: "Inregistrarea nu s-a putut realiza cu succes!" });
+      }
+    }} catch (error) {
+      next(error);
+      response.send({ message: "Inregistrarea nu s-a putut realiza cu succes!" });
     }
   }
 );

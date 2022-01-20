@@ -30,8 +30,7 @@ const Bug = sequelize.define("bug", {
   status_rezolvare: {
     //by default ar trb sa fie "Nepreluat", cand un stud il ia spre rezolvare sa se schimbe
     //si se si adauga id_membru coresunzator
-    type: DataTypes.STRING,
-    allowNull: false,
+    type: DataTypes.STRING
   },
   link_commit_rezolvare: {
     type: DataTypes.STRING,
