@@ -17,65 +17,66 @@ import { Routes, Route, Redirect, BrowserRouter } from "react-router-dom";
 import DefaultHome from "./DefaultHome";
 
 function Main() {
-  if (localStorage.getItem("token") != null) {
-    return (
-      <React.Fragment>
-        <BrowserRouter>
-          <Header2 />
-          <Routes>
-            <Route path="/home" element={<Home />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/loginSuccesful" element={<SuccesfulLogin />} />
-            <Route
-              path="/registerSuccesful"
-              element={<SuccesfulRegistration />}
-            />
-            <Route path="/testerHomepage" element={<TesterHome />} />
-            <Route path="/defaultHomePage" element={<DefaultHome />} />
-          </Routes>
-          <Footer />
-        </BrowserRouter>
-      </React.Fragment>
-    );
-  } else {
-    return (
-      <React.Fragment>
-        <BrowserRouter>
-          <Header />
-          <Routes>
-            <Route path="/home" element={<Home />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/loginSuccesful" element={<SuccesfulLogin />} />
-            <Route
-              path="/registerSuccesful"
-              element={<SuccesfulRegistration />}
-            />
-            <Route path="/testerHomepage" element={<TesterHome />} />
-            <Route path="/defaultHomePage" element={<DefaultHome />} />
-          </Routes>
-          <Footer />
-        </BrowserRouter>
-      </React.Fragment>
-    );
-  }
-  // return (
+  // if (localStorage.getItem("token") != null) {
+  //   return (
   //     <React.Fragment>
-  //         <BrowserRouter>
-  //             <Header/>
-  //             <Routes>
-  //                  <Route path='/home' element={<Home/>}/>
-  //                  <Route path='/register' element={<Register/>}/>
-  //                  <Route path='/login' element={<Login/>}/>
-  //                  <Route path='/loginSuccesful' element={<SuccesfulLogin/>}/>
-  //                  <Route path='/registerSuccesful' element={<SuccesfulRegistration/>}/>
-  //                  <Route path='/testerHomepage' element={<TesterHome/>}/>
-  //             </Routes>
-  //             <Footer/>
-  //         </BrowserRouter>
+  //       <BrowserRouter>
+  //         <Header2 />
+  //         <Routes>
+  //           <Route path="/home" element={<Home />} />
+  //           <Route path="/register" element={<Register />} />
+  //           <Route path="/login" element={<Login />} />
+  //           <Route path="/loginSuccesful" element={<SuccesfulLogin />} />
+  //           <Route
+  //             path="/registerSuccesful"
+  //             element={<SuccesfulRegistration />}
+  //           />
+  //           <Route path="/testerHomepage" element={<TesterHome />} />
+  //           <Route path="/defaultHomePage" element={<DefaultHome />} />
+  //         </Routes>
+  //         <Footer />
+  //       </BrowserRouter>
   //     </React.Fragment>
-  // )
+  //   );
+  // } else {
+  //   return (
+  //     <React.Fragment>
+  //       <BrowserRouter>
+  //         <Header />
+  //         <Routes>
+  //           <Route path="/home" element={<Home />} />
+  //           <Route path="/register" element={<Register />} />
+  //           <Route path="/login" element={<Login />} />
+  //           <Route path="/loginSuccesful" element={<SuccesfulLogin />} />
+  //           <Route
+  //             path="/registerSuccesful"
+  //             element={<SuccesfulRegistration />}
+  //           />
+  //           <Route path="/testerHomepage" element={<TesterHome />} />
+  //           <Route path="/defaultHomePage" element={<DefaultHome />} />
+  //         </Routes>
+  //         <Footer />
+  //       </BrowserRouter>
+  //     </React.Fragment>
+  //   );
+  // }
+  return (
+      <React.Fragment>
+          <BrowserRouter>
+              <Header/>
+              <Routes>
+                   <Route path='/home' element={<Home/>}/>
+                   <Route path='/register' element={<Register/>}/>
+                   <Route path='/login' element={<Login/>}/>
+                   <Route path='/loginSuccesful' element={<SuccesfulLogin/>}/>
+                   <Route path='/registerSuccesful' element={<SuccesfulRegistration/>}/>
+                   <Route path='/testerHomepage' element={<TesterHome/>}/>
+                   <Route path="/defaultHomePage" element={<DefaultHome />} />
+              </Routes>
+              <Footer/>
+          </BrowserRouter>
+      </React.Fragment>
+  )
 }
 
 export default Main;

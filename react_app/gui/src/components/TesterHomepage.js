@@ -248,20 +248,22 @@ function TesterHome() {
       let tabel = document.getElementById("table");
       let tbody = document.querySelector("#tbody");
       let td = document.createElement("td");
-      for (let i = 0; i < response.data.length; i++) {
+      const uniqueArr = [... new Set(response.data.map(data => data))]
+     //let unique = response.data.length.filter((item, i, ar) => ar.indexOf(item) === i);
+      for (let i = 0; i < uniqueArr.length; i++) {
         let tr = document.createElement("tr");
         tbody.appendChild(tr);
 
         let th = document.createElement("th");
-        th.textContent = response.data[i].nume_proiect;
+        th.textContent = uniqueArr[i].nume_proiect;
         th.setAttribute("scope", "row");
         tr.appendChild(th);
         let td2 = document.createElement("td");
-        td2.textContent = response.data[i].status_proiect;
+        td2.textContent = uniqueArr[i].status_proiect;
         tr.appendChild(td2);
         let td3 = document.createElement("td");
         let a= document.createElement("a");
-        a.setAttribute('href', response.data[i].link_repository);
+        a.setAttribute('href',uniqueArr[i].link_repository);
         a.textContent="Catre GitHub"
         td3.appendChild(a)
         // td3.textContent = a

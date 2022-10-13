@@ -195,23 +195,25 @@ function Home() {
     Axios.get("http://localhost:8080/projectsFront").then((response) => {
       let tabel = document.getElementById("table");
       let tbody = document.querySelector("#tbody");
-      let td = document.createElement("td");
-      for (let i = 0; i < response.data.length; i++) {
+      // let td = document.createElement("td");
+      //let unique = response.data.length.filter((item, i, ar) => ar.indexOf(item) === i);
+      const uniqueArr = [... new Set(response.data.map(data => data))]
+      for (let i = 0; i < uniqueArr.length; i++) {
         let tr = document.createElement("tr");
         tbody.appendChild(tr);
 
         let th = document.createElement("th");
-        th.textContent = response.data[i].nume_proiect;
+        th.textContent = uniqueArr[i].nume_proiect;
         th.setAttribute("scope", "row");
         tr.appendChild(th);
         let td2 = document.createElement("td");
-        td2.textContent = response.data[i].status_proiect;
+        td2.textContent = uniqueArr[i].status_proiect;
         tr.appendChild(td2);
         let td3 = document.createElement("td");
         td3.textContent = "Editeaza proiect";
         tr.appendChild(td3);
-        let td4 = document.createElement("Vizualizeaza bug-uri");
-        td4.textContent = response.data[i].status_proiect;
+        let td4 = document.createElement("td");
+        td4.textContent = uniqueArr[i].status_proiect;
         tr.appendChild(td4);
         //let td2 = document.createElement("td");
         // let button = document.createElement("button");
