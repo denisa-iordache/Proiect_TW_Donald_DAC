@@ -55,17 +55,17 @@ b)	MP – Buguri -> 1-la-1 <br />
 <br/>
 
 ## Capturi de ecran din aplicație
-Pagina login: <br/>
+### Pagina login: <br/>
 ![image](https://user-images.githubusercontent.com/74931542/195549614-895fd70f-dbcc-43bd-be60-2653a7353368.png)
-Pagina home care conține toate proiectele din baza de date a site-ului: <br/>
+### Pagina home care conține toate proiectele din baza de date a site-ului: <br/>
 ![image](https://user-images.githubusercontent.com/74931542/195549437-f260b3cf-79b2-4d14-a4ee-c113c4cf82a3.png)
-Pentru membrul de proiect apar proiectele în care acesta este implicat: <br/>
+### Pentru membrul de proiect apar proiectele în care acesta este implicat: <br/>
 ![image](https://user-images.githubusercontent.com/74931542/195549020-22946fbf-6031-4081-ab51-017d2cfc15f4.png)
-Adăugare proiect: <br/>
+### Adăugare proiect: <br/>
 ![image](https://user-images.githubusercontent.com/74931542/195549175-bd695125-a251-4471-88af-74e8345c8508.png)
-Pentru tester apar proiectele din baza de date a site-ului și poate să adauge bug-uri identificate pentru acestea: <br/>
+### Pentru tester apar proiectele din baza de date a site-ului și poate să adauge bug-uri identificate pentru acestea: <br/>
 ![image](https://user-images.githubusercontent.com/74931542/195550472-9b7c9ae3-9935-4b4b-a2d2-5bdd69294c88.png)
-Adăugare bug: <br/>
+### Adăugare bug: <br/>
 ![image](https://user-images.githubusercontent.com/74931542/195550622-e7f3f4b2-18e2-4b6a-afd7-423548ebbc9d.png)
 
 
